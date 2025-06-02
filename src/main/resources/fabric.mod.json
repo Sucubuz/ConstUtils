@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "lolihack",
+  "version": "${version}",
+  "name": "LoliHack",
+  "description": "An meteor addon by BreedableLoli",
+  "authors": [
+    "BreedableLoli"
+  ],
+  "contact": {
+    "repo": "https://github.com/MeteorDevelopment/meteor-addon-template"
+  },
+  "icon": "assets/template/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "meteor": [
+      "breedableloli.lolihack.LoliHackAddon"
+    ]
+  },
+  "mixins": [
+  ],
+  "custom": {
+    "meteor-client:color": "225,25,25"
+  },
+  "accessWidener": "lolihack.accesswidener",
+  "depends": {
+    "java": ">=21",
+    "minecraft": ["${mc_version}"],
+    "meteor-client": "*"
+  }
+}
