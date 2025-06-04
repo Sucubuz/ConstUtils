@@ -1,3 +1,5 @@
+// If anyone is wondering why the package name is lolihack, it is because it was named after my Minecraft IGN and I am too lazy to change them.
+
 package breedableloli.lolihack;
 
 import breedableloli.lolihack.modules.*;
