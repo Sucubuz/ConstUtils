@@ -15,12 +15,11 @@ import org.slf4j.Logger;
 
 public class LoliHackAddon extends MeteorAddon {
     public static final Logger LOG = LogUtils.getLogger();
-    public static final Category CATEGORY = new Category("LoliHack");
-    public static final HudGroup HUD_GROUP = new HudGroup("LoliHack");
+    public static final Category CATEGORY = new Category("ConstUtils");
+    public static final HudGroup HUD_GROUP = new HudGroup("ConstUtils");
 
     @Override
     public void onInitialize() {
-        LOG.info("Initializing Meteor Addon Template");
         Modules modules = Modules.get();
         // Modules
         modules.add(new ElytraFlyPlus());

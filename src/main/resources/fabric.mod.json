@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "lolihack",
+  "id": "constutils",
   "version": "${version}",
-  "name": "LoliHack",
-  "description": "An meteor addon by BreedableLoli",
+  "name": "ConstUtils",
+  "description": "An meteor addon by BreedableLoli for Constantiam",
   "authors": [
     "BreedableLoli"
   ],

@@ -1,7 +1,7 @@
-# LoliHack
-An addon for meteor client 1.21.5 made by breadableloli for constantiam
+# ConstUtils
+An addon for meteor client 1.21.5 that are made for constantiam
 
-I provide no support, glhf
+I am not paid to provide support, glhf
 
 
 modules:
