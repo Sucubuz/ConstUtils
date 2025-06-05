@@ -10,7 +10,7 @@ AutoOmean: drink omen bottle automatically
 
 ConstAntiQueue: kick player when they are in Constantiam queue so auto reconnect work
 
-ElytraFlyPlus: ported from Blackout, no firework elytra fly for Constantiam
+ElytraFlyPlus: ported from Blackout, no firework elytra fly for Constantiam with auto replace from meteor and no durability mode
 
 InfiniteWeapons: stop weapons from using durability
 
