@@ -1,6 +1,7 @@
 package breedableloli.lolihack.modules;
 
 import meteordevelopment.meteorclient.events.entity.player.PlayerMoveEvent;
+import meteordevelopment.meteorclient.events.packets.PacketEvent;
 import meteordevelopment.meteorclient.mixininterface.IVec3d;
 import breedableloli.lolihack.LoliHackAddon;
 import meteordevelopment.meteorclient.settings.*;
@@ -15,6 +16,8 @@ import meteordevelopment.meteorclient.utils.player.InvUtils;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.network.packet.c2s.play.ClientCommandC2SPacket;
+import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.component.DataComponentTypes;
 
 /**
@@ -143,6 +146,19 @@ public class ElytraFlyPlus extends Module {
             .defaultValue(false)
             .build());
 
+    public final Setting<Boolean> noDurability = sgGeneral.add(new BoolSetting.Builder()
+            .name("No-Durability")
+            .description("Stop using durability")
+            .defaultValue(false)
+            .build());
+
+    public final Setting<Integer> delay = sgGeneral.add(new IntSetting.Builder()
+            .name("delay")
+            .description("How long to reopen wing")
+            .defaultValue(100)
+            .sliderRange(1, 1000)
+            .build());
+
     public final Setting<Integer> replaceDurability = sgInventory.add(new IntSetting.Builder()
             .name("replace-durability")
             .description("The durability threshold your elytra will be replaced at.")
@@ -159,8 +175,26 @@ public class ElytraFlyPlus extends Module {
     private double velocity;
     private int activeFor;
 
+    private long packetTimer = System.nanoTime();
+
     @EventHandler(priority = EventPriority.HIGHEST)
     private void onMove(PlayerMoveEvent event) {
+
+        if (noDurability.get() && (System.nanoTime() - packetTimer) / 1000000L >= 1000) {
+            packetTimer = System.nanoTime();
+            mc.player.networkHandler
+                    .sendPacket(new ClientCommandC2SPacket(mc.player,
+                            ClientCommandC2SPacket.Mode.START_FALL_FLYING));
+            try {
+                Thread.sleep(delay.get());
+            } catch (InterruptedException e) {
+
+            }
+            mc.player.networkHandler
+                    .sendPacket(new ClientCommandC2SPacket(mc.player,
+                            ClientCommandC2SPacket.Mode.START_FALL_FLYING));
+        }
+
         if (!active())
             return;
 
@@ -187,7 +221,6 @@ public class ElytraFlyPlus extends Module {
                 }
             }
         }
-
     }
 
     private void constantiamTick(PlayerMoveEvent event) {
