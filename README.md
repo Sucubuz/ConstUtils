@@ -25,5 +25,6 @@ Mainly ported from [Blackout](https://github.com/KassuK1/BlackOut/blob/95a5bfcc6
 Replace ported from meteor [ElytraFly](https://github.com/MeteorDevelopment/meteor-client/blob/19809bc90cec629fec28ebb635e481fddf84ca0a/src/main/java/meteordevelopment/meteorclient/systems/modules/movement/elytrafly/ElytraFlightMode.java#L51)
 
 ElytraJump ported from [WiseTree](https://github.com/LifeHacker125132/WiseTree/blob/master/src/main/java/wise/tree/addon/misc/ElytraJump.java)
+
 Durability reduce inspired by meteor elytra packet fly
 
