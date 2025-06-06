@@ -18,7 +18,7 @@ LagNotifier: ported from some hack I forgot, work better then meteor built in in
 
 Speed+: A speed hack that doesn't crap itself on bed or in bushes, edited from meteor built in vanilla speed module
 
-ElytraFlyPlusPlus:
+## ElytraFlyPlusPlus:
 
 Mainly ported from [Blackout](https://github.com/KassuK1/BlackOut/blob/95a5bfcc6422859b0fc4715f4a44d6140533291f/src/main/java/kassuk/addon/blackout/modules/ElytraFlyPlus.java) ElytraFly Plus, no firework elytra fly for Constantiam
 
