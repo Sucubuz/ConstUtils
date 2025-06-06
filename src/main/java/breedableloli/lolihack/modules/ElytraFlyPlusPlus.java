@@ -1,5 +1,6 @@
 package breedableloli.lolihack.modules;
 
+import meteordevelopment.meteorclient.events.entity.player.JumpVelocityMultiplierEvent;
 import meteordevelopment.meteorclient.events.entity.player.PlayerMoveEvent;
 import meteordevelopment.meteorclient.events.packets.PacketEvent;
 import meteordevelopment.meteorclient.mixininterface.IVec3d;
@@ -24,9 +25,9 @@ import net.minecraft.component.DataComponentTypes;
  * @author OLEPOSSU
  */
 
-public class ElytraFlyPlus extends Module {
-    public ElytraFlyPlus() {
-        super(LoliHackAddon.CATEGORY, "Elytra-Fly-Plus", "Better efly.");
+public class ElytraFlyPlusPlus extends Module {
+    public ElytraFlyPlusPlus() {
+        super(LoliHackAddon.CATEGORY, "Elytra-Fly-Plus-Plus", "Better better efly.");
     }
 
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
@@ -118,7 +119,7 @@ public class ElytraFlyPlus extends Module {
     private final Setting<Double> constSpeed = sgSpeed.add(new DoubleSetting.Builder()
             .name("Const Speed")
             .description("Maximum speed for constantiam mode.")
-            .defaultValue(1)
+            .defaultValue(3.2)
             .min(0)
             .sliderRange(0, 5)
             .visible(() -> mode.get() == Mode.Constantiam)
@@ -127,7 +128,7 @@ public class ElytraFlyPlus extends Module {
     private final Setting<Double> constAcceleration = sgSpeed.add(new DoubleSetting.Builder()
             .name("Const Acceleration")
             .description("Maximum speed for constantiam mode.")
-            .defaultValue(1)
+            .defaultValue(2)
             .min(0)
             .sliderRange(0, 5)
             .visible(() -> mode.get() == Mode.Constantiam)
@@ -143,19 +144,19 @@ public class ElytraFlyPlus extends Module {
     public final Setting<Boolean> replace = sgInventory.add(new BoolSetting.Builder()
             .name("elytra-replace")
             .description("Replaces broken elytra with a new elytra.")
-            .defaultValue(false)
+            .defaultValue(true)
             .build());
 
     public final Setting<Boolean> noDurability = sgGeneral.add(new BoolSetting.Builder()
-            .name("No-Durability")
-            .description("Stop using durability")
-            .defaultValue(false)
+            .name("Reduce-Durability")
+            .description("Reduce usage durability")
+            .defaultValue(true)
             .build());
 
     public final Setting<Integer> delay = sgGeneral.add(new IntSetting.Builder()
             .name("delay")
             .description("How long to reopen wing")
-            .defaultValue(100)
+            .defaultValue(40)
             .sliderRange(1, 1000)
             .build());
 
@@ -167,6 +168,8 @@ public class ElytraFlyPlus extends Module {
             .sliderRange(1, Items.ELYTRA.getComponents().get(DataComponentTypes.MAX_DAMAGE) - 1)
             .visible(replace::get)
             .build());
+    private final Setting<Double> multiplier = sgGeneral
+            .add(new DoubleSetting.Builder().name("jump-factor").defaultValue(1).min(0).build());
 
     private boolean moving;
     private float yaw;
@@ -177,10 +180,19 @@ public class ElytraFlyPlus extends Module {
 
     private long packetTimer = System.nanoTime();
 
+    @EventHandler
+    private void onJumpVelocityMultiplier(JumpVelocityMultiplierEvent event) {
+        if (mc.player.isGliding())
+            event.multiplier *= multiplier.get();
+
+    }
+
     @EventHandler(priority = EventPriority.HIGHEST)
     private void onMove(PlayerMoveEvent event) {
+        if (noDurability.get() && mc.player.isOnGround())
+            packetTimer = System.nanoTime();
 
-        if (noDurability.get() && (System.nanoTime() - packetTimer) / 1000000L >= 1000) {
+        if (noDurability.get() && (System.nanoTime() - packetTimer) / 1000000L >= 900) {
             packetTimer = System.nanoTime();
             mc.player.networkHandler
                     .sendPacket(new ClientCommandC2SPacket(mc.player,

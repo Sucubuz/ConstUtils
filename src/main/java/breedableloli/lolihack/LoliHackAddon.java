@@ -24,7 +24,7 @@ public class LoliHackAddon extends MeteorAddon {
     public void onInitialize() {
         Modules modules = Modules.get();
         // Modules
-        modules.add(new ElytraFlyPlus());
+        modules.add(new ElytraFlyPlusPlus());
         modules.add(new InfiniteWeapons());
         modules.add(new LagNotifier());
         modules.add(new AutoOmen());
