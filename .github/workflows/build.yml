@@ -24,7 +24,8 @@ jobs:
     - name: Publish release
       uses: ncipollo/release-action@v1
       with:
-        body: "diff the file urself for change log"
+        tag: ${{ github.sha }}
+        body: "diff the file urself for changelog"
         name: artifact
         commit: ${{ github.sha }}
         artifacts: build/libs/*.jar
