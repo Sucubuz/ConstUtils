@@ -24,7 +24,7 @@ jobs:
     - name: Publish release
       uses: ncipollo/release-action@v1
       with:
-        tag: ${{ github.sha }}
+        tag: ${{ github.sha::7 }}
         body: "diff the file urself for changelog"
         name: artifact
         commit: ${{ github.sha }}
