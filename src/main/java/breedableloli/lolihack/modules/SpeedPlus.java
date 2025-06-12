@@ -15,6 +15,7 @@ import meteordevelopment.meteorclient.systems.modules.Categories;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.modules.movement.Anchor;
+import meteordevelopment.meteorclient.systems.modules.movement.Scaffold;
 import meteordevelopment.meteorclient.systems.modules.movement.speed.modes.Strafe;
 import meteordevelopment.meteorclient.systems.modules.movement.speed.modes.Vanilla;
 import meteordevelopment.meteorclient.systems.modules.world.Timer;
@@ -86,7 +87,8 @@ public class SpeedPlus extends Module {
         if (timer.get() != Timer.OFF) {
             Modules.get().get(Timer.class).setOverride(PlayerUtils.isMoving() ? timer.get() : Timer.OFF);
         }
-        Vec3d vel = PlayerUtils.getHorizontalVelocity(this.vanillaSpeed.get());
+        Vec3d vel = getSpeed();
+
         double velX = vel.getX();
         double velZ = vel.getZ();
 
@@ -119,10 +121,17 @@ public class SpeedPlus extends Module {
         if (vanillaOnGround.get() && !mc.player.isOnGround())
             return true;
 
-        if (mc.world.getBlockState(mc.player.getBlockPos()).getBlock() == Blocks.SWEET_BERRY_BUSH) {
-            return true;
-        }
         return !inLiquids.get() && (mc.player.isTouchingWater() || mc.player.isInLava());
+    }
+
+    private Vec3d getSpeed() {
+        if (mc.world.getBlockState(mc.player.getBlockPos()).getBlock() == Blocks.SWEET_BERRY_BUSH) {
+            return PlayerUtils.getHorizontalVelocity(3);
+        }
+        if (Modules.get().get(Scaffold.class).isActive()) {
+            return PlayerUtils.getHorizontalVelocity(6);
+        }
+        return PlayerUtils.getHorizontalVelocity(this.vanillaSpeed.get());
     }
 
 }
