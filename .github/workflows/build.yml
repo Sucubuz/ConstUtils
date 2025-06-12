@@ -27,5 +27,5 @@ jobs:
         body: "diff the file urself for change log"
         name: artifact
         commit: ${{ github.sha }}
-        path: build/libs/*.jar
+        artifacts: build/libs/*.jar
 
