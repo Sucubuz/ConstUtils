@@ -26,9 +26,8 @@ jobs:
 
     - name: Publish release
       uses: ncipollo/release-action@v1
-      needs: date
       with:
-        tag: ${{ needs.date.date }}
+        tag: ${{ steps.date.outputs.date }}
         body: "diff the file urself for changelog"
         name: artifact
         commit: ${{ github.sha }}
