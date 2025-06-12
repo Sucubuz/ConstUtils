@@ -20,11 +20,15 @@ jobs:
         cache: gradle
     - name: Build with gradle
       run: ./gradlew build --no-daemon
+    - name: date
+      run: echo "date=${date}" >> "$GITHUB_OUTPUT"
+      id: date
 
     - name: Publish release
       uses: ncipollo/release-action@v1
+      needs: date
       with:
-        tag: ${{ github.sha::7 }}
+        tag: ${{ needs.date.date }}
         body: "diff the file urself for changelog"
         name: artifact
         commit: ${{ github.sha }}
