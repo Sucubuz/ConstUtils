@@ -21,7 +21,7 @@ jobs:
     - name: Build with gradle
       run: ./gradlew build --no-daemon
     - name: date
-      run: echo "date=$(date -u -Iseconds)" >> "$GITHUB_OUTPUT"
+      run: echo "date=$(date +%Y-%m-%d-%H-%M-%S)" >> "$GITHUB_OUTPUT"
       id: date
 
     - name: Publish release
